@@ -95,22 +95,23 @@
         }
 
         #searchButton {
-            background-color: #4ECDC4;
+            background-color: #FF6B6B;
             color: white;
             border: none;
-            padding: 0 25px;
+            width: 100px; /* Ancho fijo para el botón */
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 5px;
             border-radius: 0 30px 30px 0;
             height: 100%;
+            transition: background-color 0.3s;
         }
 
         #searchButton:hover {
-            background-color: #39b5ac;
+            background-color: #FF5252;
         }
 
         .small-instruction {
@@ -195,7 +196,7 @@
         .bingo-free {
             background-color: #FF6B6B;
             color: white;
-            font-size: 20px;
+            font-size: 12px;
         }
 
         .card-number-label {
@@ -289,21 +290,13 @@
             color: #555;
         }
 
-        @media (max-width: 400px) {
-            .search-input-group {
-                flex-direction: column;
-                height: auto;
-                border-radius: 8px;
-            }
-            #cardNumberInput, #searchButton {
-                width: 100%;
-                border-radius: 8px;
-                padding: 12px 15px;
-                box-sizing: border-box;
-            }
-            #searchButton {
-                margin-top: 10px;
-            }
+        footer {
+            background-color: #4ECDC4;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            margin-top: auto;
         }
     </style>
 </head>
@@ -316,13 +309,13 @@
 
     <main>
         <section class="hero-section">
-            <h2>✨ ¡Encuentra tu Cartón Ganador! ✨</h2>
-            <p>Busca aquí tu número de la suerte y prepárate para ganar 🍀</p>
+            <h2>¡Encuentra tu Cartón Ganador! </h2>
+            <p>Busca aquí tu número de la suerte y prepárate para ganar </p>
         </section>
 
         <div class="search-input-group">
             <input type="text" id="cardNumberInput" placeholder="Ingresa el número">
-            <button id="searchButton">🔎 Buscar</button>
+            <button id="searchButton">Buscar</button>
         </div>
 
         <p class="small-instruction">Ingresa el número exacto del cartón que deseas encontrar</p>
@@ -338,6 +331,10 @@
         <p id="message" class="message"></p>
     </main>
 
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Bingo Club</p>
+    </footer>
+
     <div id="bingoModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -345,9 +342,6 @@
             <p class="modal-card-number-label" id="modalCardNumberLabel"></p>
         </div>
     </div>
-
-    <footer>
-    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -360,6 +354,9 @@
             const modalContent = document.getElementById('modalBingoCard');
             const modalCardNumberLabel = document.getElementById('modalCardNumberLabel');
             const spanClose = document.getElementsByClassName('close')[0];
+
+            // Set the current year in the footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
 
             spanClose.onclick = function() {
                 modal.style.display = 'none';
@@ -398,7 +395,7 @@
                         gridNumbers.push(columnB[row]);
                         gridNumbers.push(columnI[row]);
                         if (row === 2) {
-                            gridNumbers.push("FREE");
+                            gridNumbers.push("Bingo Club");
                         } else {
                             const nIndex = row > 2 ? row - 1 : row;
                             gridNumbers.push(columnN[nIndex]);
@@ -462,9 +459,8 @@
                     let cellClass = 'bingo-cell';
                     if (index < 5) {
                         cellClass += ' bingo-header';
-                    } else if (num === "FREE") {
+                    } else if (num === "Bingo Club") {
                         cellClass += ' bingo-free';
-                        num = "⭐";
                     }
                     cardHtml += `<div class="${cellClass}">${num}</div>`;
                 });
