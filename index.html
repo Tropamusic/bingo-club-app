@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Club - Busca tu Cartón Ganador</title>
+    <style>
+        /* INICIO DEL CÓDIGO CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ffffff; /* White header background */
+            width: 100%;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            background-color: #00bcd4; /* Cyan for Go!Bingo button */
+            border-radius: 20px;
+            padding: 5px 12px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .header-left .logo-circle {
+            background-color: #FFD700; /* Yellow circle for 'Go!' */
+            border-radius: 50%;
+            padding: 3px 6px;
+            font-size: 14px;
+            color: #333;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .header-right {
+            background-color: #25D366; /* WhatsApp green */
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .header-right img {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px; /* Adjust as per screenshot's content width */
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background-color: #00BCD4; /* Cyan background */
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            border-radius: 12px; /* More rounded corners */
+        }
+
+        .hero-section h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .hero-section p {
+            margin: 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            opacity: 0.9;
+        }
+
+        .hero-section p span {
+            display: flex; /* For aligning icon and text */
+            align-items: center;
+            gap: 3px;
+        }
+
+        .search-input-group {
+            display: flex;
+            background-color: white;
+            border-radius: 30px; /* Highly rounded */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            height: 48px; /* Fixed height for consistency */
+        }
+
+        #cardNumberInput {
+            flex-grow: 1;
+            border: none;
+            padding: 0 20px; /* Padding inside the input */
+            font-size: 16px;
+            outline: none; /* Remove blue outline on focus */
+        }
+
+        #searchButton {
+            background-color: #00BCD4; /* Cyan for search button */
+            color: white;
+            border: none;
+            padding: 0 25px; /* Adjust padding for button size */
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 0 30px 30px 0; /* Rounded only on right */
+            height: 100%; /* Make button fill parent height */
+        }
+
+        #searchButton:hover {
+            background-color: #0097A7; /* Darker cyan on hover */
+        }
+
+        .small-instruction {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .bottom-info-box {
+            border: 2px dashed #ccc; /* Dashed border */
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px; /* Ensure some height even when empty */
+        }
+
+        .bottom-info-box .icon {
+            font-size: 40px; /* Magnifying glass icon size */
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .bottom-info-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #555;
+        }
+
+        .bottom-info-box p {
+            margin: 0;
+            font-size: 15px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+
+        /* Bingo Card Styling (Keep similar to previous, adjust as needed to match screenshot) */
+        .bingo-card-container {
+            padding: 15px; /* Reduced padding to match screenshot tighter card */
+            border: 2px solid #ff9800; /* Orange border */
+            border-radius: 10px;
+            background-color: #fff3e0; /* Light orange background */
+            text-align: center;
+            position: relative; /* For the small blue circle */
+        }
+
+        .bingo-card {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px; /* Smaller gap for tighter grid */
+            width: 100%;
+            max-width: 280px; /* Adjust for screenshot look */
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for card */
+        }
+
+        .bingo-cell {
+            width: 100%;
+            padding: 8px 0; /* Smaller padding */
+            background-color: #ffd790;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            font-size: 16px; /* Smaller font for numbers */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1 / 1; /* Make cells square */
+        }
+
+        .bingo-header {
+            background-color: #ff9800; /* Orange header */
+            color: white;
+            font-size: 18px; /* Slightly smaller header font */
+            font-weight: bold;
+        }
+
+        .bingo-free {
+            background-color: #f44336; /* Red for free space */
+            color: white;
+            font-size: 20px; /* Larger symbol for free space */
+        }
+
+        .card-number-label {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .amplify-button {
+            background-color: #673AB7; /* Purple */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: auto; /* Align to right if container is flex */
+            margin-right: auto;
+        }
+
+        .amplify-button:hover {
+            background-color: #512DA8;
+        }
+
+        .card-id-circle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2196F3; /* Blue circle for ID */
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            text-align: center;
+            font-weight: bold;
+            color: red;
+            margin-top: 15px;
+        }
+
+        /* Responsive adjustments (optional but good practice) */
+        @media (max-width: 400px) {
+            .search-input-group {
+                flex-direction: column;
+                height: auto;
+                border-radius: 8px;
+            }
+            #cardNumberInput, #searchButton {
+                width: 100%;
+                border-radius: 8px;
+                padding: 12px 15px;
+                box-sizing: border-box;
+            }
+            #searchButton {
+                margin-top: 10px;
+            }
+        }
+        /* FIN DEL CÓDIGO CSS */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <span class="logo-circle">BINGO</span>CLUB
+        </div>
+        <div class="header-right">
+            <a href="#" target="_blank">Grupo <img src="whatsapp-icon.png" alt="WhatsApp"></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h2>✨¡Encuentra tu Cartón Ganador✨</h2>
+            <p>
+                <span>
+                    <span style="font-size: 1.2em; vertical-align: middle;">&#x1F4C5;</span> Busca aquí tu número de la suerte
+                </span>
+                y prepárate para ganar
+                <span>
+                    🍀<span style="font-size: 1.2em; vertical-align: middle;">&#x1F50D;</span> </span>
+            </p>
+        </section>
+
+        <div class="search-input-group">
+            <input type="text" id="cardNumberInput" placeholder="Ingresa el número">
+            <button id="searchButton">🔎 Buscar</button>
+        </div>
+
+        <p class="small-instruction">Ingresa el número exacto del cartón que deseas encontrar</p>
+
+        <section id="bingoCardDisplay" class="bingo-card-container hidden">
+            </section>
+
+        <section id="initialInfoBox" class="bottom-info-box">
+            <span class="icon">🔎</span>
+            <h3>Busca tu cartón de Bingo</h3>
+            <p>Ingresa el número de tu cartón en el buscador para visualizarlo aquí</p>
+        </section>
+
+        <p id="message" class="message"></p>
+    </main>
+
+    <footer>
+        </footer>
+
+    <script>
+        /* INICIO DEL CÓDIGO JAVASCRIPT */
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.getElementById('searchButton');
+            const cardNumberInput = document.getElementById('cardNumberInput');
+            const bingoCardDisplay = document.getElementById('bingoCardDisplay');
+            const messageDisplay = document.getElementById('message');
+            const initialInfoBox = document.getElementById('initialInfoBox');
+
+            // --- Función para generar números únicos en un rango ---
+            function getRandomUniqueNumbers(min, max, count, excludedNumbers = new Set()) {
+                const numbers = new Set();
+                while (numbers.size < count) {
+                    const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                    if (!excludedNumbers.has(num)) {
+                        numbers.add(num);
+                    }
+                }
+                return Array.from(numbers).sort((a, b) => a - b); // Opcional: ordenar para apariencia
+            }
+
+            // --- Función para generar cartones de bingo DUMMY más realistas ---
+            // Asegura números únicos POR CARTÓN y distribución por columna.
+            function generateDummyBingoCards(totalCards) {
+                const cards = [];
+                const headers = ["B", "I", "N", "G", "O"];
+
+                for (let i = 1; i <= totalCards; i++) {
+                    const columnB = getRandomUniqueNumbers(1, 15, 5);
+                    const columnI = getRandomUniqueNumbers(16, 30, 5);
+                    const columnN = getRandomUniqueNumbers(31, 45, 4); // 4 números + FREE
+                    const columnG = getRandomUniqueNumbers(46, 60, 5);
+                    const columnO = getRandomUniqueNumbers(61, 75, 5); // Ojo: si el rango buscado es hasta 500, estos números son muy pequeños.
+                                                                        // Los números de bingo estándar son hasta 75.
+
+                    let gridNumbers = [];
+                    // Intercalar los números de las columnas para formar la cuadrícula de 5x5
+                    for (let row = 0; row < 5; row++) {
+                        gridNumbers.push(columnB[row]);
+                        gridNumbers.push(columnI[row]);
+                        if (row === 2) { // La celda central (3ª fila) de la columna N es "FREE"
+                            gridNumbers.push("FREE");
+                        } else {
+                            // Ajustar índice para la columna N que solo tiene 4 números
+                            const nIndex = row > 2 ? row - 1 : row;
+                            gridNumbers.push(columnN[nIndex]);
+                        }
+                        gridNumbers.push(columnG[row]);
+                        gridNumbers.push(columnO[row]);
+                    }
+                    
+                    cards.push({
+                        id: String(i),
+                        numbers: [...headers, ...gridNumbers] // Unir encabezados y números de la cuadrícula
+                    });
+                }
+                return cards;
+            }
+
+            // Generamos una lista de 350 cartones dummy corregidos
+            const allBingoCards = generateDummyBingoCards(350);
+
+            searchButton.addEventListener('click', () => {
+                const searchTerm = cardNumberInput.value.trim();
+                messageDisplay.textContent = ''; // Limpiar mensajes anteriores
+                bingoCardDisplay.classList.add('hidden'); // Ocultar cartón por defecto
+                initialInfoBox.classList.add('hidden'); // Ocultar el box de info inicial
+
+                if (searchTerm === "") {
+                    messageDisplay.textContent = "Por favor, ingresa un número o ID de cartón.";
+                    initialInfoBox.classList.remove('hidden'); // Mostrar info box si no hay búsqueda
+                    return;
+                }
+
+                const searchNumber = parseInt(searchTerm, 10); // Convertir a número si es posible
+                let foundCard = null;
+
+                // 1. Intentar buscar por ID de cartón (ej. si busca "150", muestra el cartón 150)
+                foundCard = allBingoCards.find(card => card.id === searchTerm);
+
+                // 2. Si no se encontró por ID, intentar buscar si el número está en algún cartón
+                if (!foundCard && !isNaN(searchNumber)) {
+                    for (const card of allBingoCards) {
+                        // Buscar el número dentro del array de números del cartón
+                        // Excluimos los encabezados (B,I,N,G,O) y el "FREE" al buscar un número real
+                        const searchableNumbers = card.numbers.filter(n => typeof n === 'number');
+                        if (searchableNumbers.includes(searchNumber)) {
+                            foundCard = card;
+                            break; // Encontramos el primer cartón con ese número y salimos
+                        }
+                    }
+                }
+
+                if (foundCard) {
+                    displayBingoCard(foundCard);
+                } else {
+                    messageDisplay.textContent = "Cartón no encontrado. Verifica el número o ID.";
+                    initialInfoBox.classList.remove('hidden'); // Mostrar info box si no se encuentra
+                }
+            });
+
+            function displayBingoCard(card) {
+                let cardHtml = `
+                    <div class="card-id-circle">${card.id}</div>
+                    <div class="bingo-card">
+                `;
+
+                card.numbers.forEach((num, index) => {
+                    let cellClass = 'bingo-cell';
+                    if (index < 5) { // Las primeras 5 celdas son los encabezados B-I-N-G-O
+                        cellClass += ' bingo-header';
+                    } else if (num === "FREE") {
+                        cellClass += ' bingo-free';
+                        num = "⭐"; // Puedes usar un símbolo para el espacio libre
+                    }
+                    cardHtml += `<div class="${cellClass}">${num}</div>`;
+                });
+
+                cardHtml += `
+                    </div>
+                    <p class="card-number-label">Cartón #${card.id}</p>
+                    <button class="amplify-button">Ampliar</button>
+                `;
+                bingoCardDisplay.innerHTML = cardHtml;
+                bingoCardDisplay.classList.remove('hidden');
+            }
+        });
+        /* FIN DEL CÓDIGO JAVASCRIPT */
+    </script>
+</body>
+</html>
