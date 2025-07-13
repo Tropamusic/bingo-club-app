@@ -150,26 +150,23 @@
         .bingo-card {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 1px;
+            gap: 5px;
             width: 100%;
-            max-width: 280px;
+            max-width: 300px;
             margin: 0 auto;
-            border: 1px solid #ccc;
-            border-collapse: collapse;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .bingo-cell {
-            width: 100%;
-            padding: 8px 0;
-            background-color: #e9ecef;
-            border: 1px solid #dee2e6;
-            font-weight: bold;
-            font-size: 16px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            aspect-ratio: 1 / 1;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 2px;
         }
 
         .bingo-header {
@@ -183,6 +180,26 @@
             background-color: #FF6B6B;
             color: white;
             font-size: 12px;
+        }
+
+        .column-B {
+            background-color: #FFBE0B;
+        }
+
+        .column-I {
+            background-color: #FB5607;
+        }
+
+        .column-N {
+            background-color: #8338EC;
+        }
+
+        .column-G {
+            background-color: #3A86FF;
+        }
+
+        .column-O {
+            background-color: #00B4D8;
         }
 
         .card-number-label {
@@ -288,13 +305,13 @@
 </head>
 <body>
     <header>
-        <img src="https://mistralaichatupprodswe.blob.core.windows.net/chat-images/73/c0/10/73c01094-f775-4f5c-95b9-c0ba41e611ea/1e0a6f09-2c6b-418b-aa6f-b1712e8aa947/8ad11d4e-4146-4e71-b783-c8fb3f9b7ed5?sv=2025-01-05&st=2025-07-13T01%3A56%3A12Z&se=2025-07-13T02%3A56%3A12Z&sr=b&sp=rade&sig=pIBPXIX0Bvv63HypkSbN%2BB3mKmSmJv6TCg3or6tSYhU%3D" alt="Bingo Club Logo" class="logo">
+        <img src="https://mistralaichatupprodswe.blob.core.windows.net/chat-images/73/c0/10/73c01094-f775-4f5c-95b9-c0ba41e611ea/1e0a6f09-2c6b-418b-aa6f-b1712e8aa947/51a0a4ae-c9b5-4d76-a968-cf031f8e885b?sv=2025-01-05&st=2025-07-13T22%3A15%3A40Z&se=2025-07-13T23%3A15%3A40Z&sr=b&sp=rade&sig=g9dSbEBfOA2O4e1xfavOAffeq5tmTKy5BaH5C5RiAAc%3D" alt="Bingo Club Logo" class="logo">
     </header>
 
     <main>
         <section class="hero-section">
-            <h2> ¡Encuentra tu Cartón Ganador! </h2>
-            <p>Busca aquí tu número de la suerte y prepárate para ganar </p>
+            <h2>¡Encuentra tu Cartón Ganador!</h2>
+            <p>Busca aquí tu número de la suerte y prepárate para ganar</p>
         </section>
 
         <div class="search-input-group">
@@ -445,6 +462,13 @@
                         cellClass += ' bingo-header';
                     } else if (num === "Bingo Club") {
                         cellClass += ' bingo-free';
+                    } else {
+                        const columnIndex = index % 5;
+                        if (columnIndex === 0) cellClass += ' column-B';
+                        else if (columnIndex === 1) cellClass += ' column-I';
+                        else if (columnIndex === 2) cellClass += ' column-N';
+                        else if (columnIndex === 3) cellClass += ' column-G';
+                        else if (columnIndex === 4) cellClass += ' column-O';
                     }
                     cardHtml += `<div class="${cellClass}">${num}</div>`;
                 });
