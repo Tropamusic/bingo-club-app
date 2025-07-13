@@ -27,24 +27,10 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            background-color: #FF6B6B;
-            border-radius: 20px;
-            padding: 5px 12px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .header-left .logo-circle {
-            background-color: #FFD166;
-            border-radius: 50%;
-            padding: 3px 6px;
-            font-size: 14px;
-            color: #333;
-            margin-right: 8px;
-            font-weight: bold;
+        .logo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
         }
 
         main {
@@ -98,7 +84,7 @@
             background-color: #FF6B6B;
             color: white;
             border: none;
-            width: 100px; /* Ancho fijo para el botón */
+            width: 100px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
@@ -302,14 +288,12 @@
 </head>
 <body>
     <header>
-        <div class="header-left">
-            <span class="logo-circle">BINGO</span>CLUB
-        </div>
+        <img src="https://mistralaichatupprodswe.blob.core.windows.net/chat-images/73/c0/10/73c01094-f775-4f5c-95b9-c0ba41e611ea/1e0a6f09-2c6b-418b-aa6f-b1712e8aa947/8ad11d4e-4146-4e71-b783-c8fb3f9b7ed5?sv=2025-01-05&st=2025-07-13T01%3A56%3A12Z&se=2025-07-13T02%3A56%3A12Z&sr=b&sp=rade&sig=pIBPXIX0Bvv63HypkSbN%2BB3mKmSmJv6TCg3or6tSYhU%3D" alt="Bingo Club Logo" class="logo">
     </header>
 
     <main>
         <section class="hero-section">
-            <h2>¡Encuentra tu Cartón Ganador! </h2>
+            <h2> ¡Encuentra tu Cartón Ganador! </h2>
             <p>Busca aquí tu número de la suerte y prepárate para ganar </p>
         </section>
 
@@ -332,7 +316,7 @@
     </main>
 
     <footer>
-        <p>&copy; <span id="currentYear"></span> Bingo Club</p>
+        <p>&copy; <span id="currentYear"></span> Bingo Club. Todos los derechos reservados.</p>
     </footer>
 
     <div id="bingoModal" class="modal">
